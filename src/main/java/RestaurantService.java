@@ -6,8 +6,14 @@ public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
 
     public Restaurant findRestaurantByName(String restaurantName){
+        List<Restaurant> restList = getRestaurants();
+
+        for (Restaurant res : restList) {
+            if (res.getName().contains(restaurantName)) {
+                return res;
+            }
+        }
         return null;
-        //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
 
 
@@ -25,5 +31,19 @@ public class RestaurantService {
 
     public List<Restaurant> getRestaurants() {
         return restaurants;
+    }
+
+    public int getTotalAmount(Restaurant restaurant, List<String> itemList) {
+        int totalAmount = 0;
+        List<Item> restaurantMenu = restaurant.getMenu();
+
+        for (Item eachItem : restaurantMenu) {
+
+            if (itemList.contains(eachItem.getName())) {
+                totalAmount += eachItem.getPrice();
+            }
+        }
+
+        return totalAmount;
     }
 }
